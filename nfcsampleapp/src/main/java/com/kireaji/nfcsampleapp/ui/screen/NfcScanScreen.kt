@@ -148,10 +148,6 @@ fun DefaultPreview() {
             color = MaterialTheme.colors.background
         ) {
             NfcScanScreen(object : NfcScanViewModel {
-                override val eventStartScan: SharedFlow<Unit>
-                    get() = TODO("Not yet implemented")
-                override val eventCancelScan: SharedFlow<Unit>
-                    get() = TODO("Not yet implemented")
                 override val stateNfc: StateFlow<NfcState>
                     get() = TODO("Not yet implemented")
 

@@ -72,4 +72,11 @@ dependencies {
     // add
     implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
+    val media3_version = "1.0.0-rc01"
+    // For media playback using ExoPlayer
+    implementation("androidx.media3:media3-exoplayer:$media3_version")
+    // For building media playback UIs
+    implementation("androidx.media3:media3-ui:$media3_version")
+    // For exposing and controlling media sessions
+    implementation("androidx.media3:media3-session:$media3_version")
 }

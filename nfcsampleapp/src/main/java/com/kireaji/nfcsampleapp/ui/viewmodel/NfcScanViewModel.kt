@@ -19,24 +19,26 @@ import kotlinx.coroutines.launch
 
 interface NfcScanViewModel {
 
-    val eventStartScan: SharedFlow<Unit>
-
-    val eventCancelScan: SharedFlow<Unit>
-
     val stateNfc: StateFlow<NfcState>
     fun onClickStartScan()
     fun onClickCancelScan()
 }
 
 class NfcScanViewModelImpl(
-    val nfcAdapter: NfcAdapter
+    private val nfcAdapter: NfcAdapter
 ) : ViewModel(), NfcScanViewModel, NfcAdapter.ReaderCallback {
 
     private val _eventStartScan = MutableSharedFlow<Unit>()
-    override val eventStartScan: SharedFlow<Unit> = _eventStartScan
+    val eventStartScan: SharedFlow<Unit> = _eventStartScan
 
     private val _eventCancelScan = MutableSharedFlow<Unit>()
-    override val eventCancelScan: SharedFlow<Unit> = _eventCancelScan
+    val eventCancelScan: SharedFlow<Unit> = _eventCancelScan
+
+    private val _eventStartPlayer = MutableSharedFlow<Unit>()
+    val eventStartPlayer: SharedFlow<Unit> = _eventStartPlayer
+
+    private val _eventStopPlayer = MutableSharedFlow<Unit>()
+    val eventStopPlayer: SharedFlow<Unit> = _eventStopPlayer
 
     private val _stateNfc = MutableStateFlow<NfcState>(NfcState.None)
     override val stateNfc = _stateNfc.asStateFlow()
@@ -75,7 +77,7 @@ class NfcScanViewModelImpl(
 
         if (idmString != "") {
             viewModelScope.launch {
-                _eventCancelScan.emit(Unit)
+                _eventStartPlayer.emit(Unit)
                 _stateNfc.emit(NfcState.Success(idmString))
             }
             // scope.launch { state.hide() }
