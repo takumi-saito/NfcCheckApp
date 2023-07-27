@@ -30,6 +30,15 @@ android {
             )
         }
     }
+    flavorDimensions.add("appType")
+    productFlavors {
+        create("instant") {
+            versionCode = 2
+        }
+        create("installed") {
+            versionCode = 1002
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
