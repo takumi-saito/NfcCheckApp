@@ -22,6 +22,7 @@ interface NfcScanViewModel {
     val stateNfc: StateFlow<NfcState>
     fun onClickStartScan()
     fun onClickCancelScan()
+    fun onClickInstallPrompt()
 }
 
 class NfcScanViewModelImpl(
@@ -40,6 +41,9 @@ class NfcScanViewModelImpl(
     private val _eventStopPlayer = MutableSharedFlow<Unit>()
     val eventStopPlayer: SharedFlow<Unit> = _eventStopPlayer
 
+    private val _eventShowInstallPrompt = MutableSharedFlow<Unit>()
+    val eventShowInstallPrompt: SharedFlow<Unit> = _eventShowInstallPrompt
+
     private val _stateNfc = MutableStateFlow<NfcState>(NfcState.None)
     override val stateNfc = _stateNfc.asStateFlow()
 
@@ -52,6 +56,12 @@ class NfcScanViewModelImpl(
     override fun onClickCancelScan() {
         viewModelScope.launch {
             _eventCancelScan.emit(Unit)
+        }
+    }
+
+    override fun onClickInstallPrompt() {
+        viewModelScope.launch {
+            _eventShowInstallPrompt.emit(Unit)
         }
     }
 

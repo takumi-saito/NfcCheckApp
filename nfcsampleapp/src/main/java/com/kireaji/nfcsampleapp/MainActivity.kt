@@ -13,12 +13,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
-import androidx.media3.common.MimeTypes
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.SimpleExoPlayer
 import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
@@ -29,6 +27,7 @@ import com.kireaji.nfcsampleapp.ui.viewmodel.NfcScanViewModelImpl
 import kotlinx.coroutines.launch
 import android.content.Intent
 import android.net.Uri
+import com.google.android.gms.instantapps.InstantApps
 
 @UnstableApi
 class MainActivity : ComponentActivity() {
@@ -100,6 +99,11 @@ class MainActivity : ComponentActivity() {
                 releasePlayer()
             }
         }
+        lifecycleScope.launch {
+            viewModel.eventShowInstallPrompt.collect {
+                showInstallPrompt()
+            }
+        }
     }
 
     private var player: ExoPlayer? = null
@@ -144,6 +148,18 @@ class MainActivity : ComponentActivity() {
             exoPlayer.release()
         }
         player = null
+    }
+
+    private fun showInstallPrompt() {
+        val postInstall = Intent(Intent.ACTION_MAIN)
+            .addCategory(Intent.CATEGORY_DEFAULT)
+            .setPackage("com.kireaji.nfcsampleapp")
+        InstantApps.showInstallPrompt(
+            this,
+            postInstall,
+            100,
+            null
+        )
     }
 
     companion object {

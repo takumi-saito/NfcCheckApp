@@ -1,5 +1,7 @@
 package com.kireaji.nfcsampleapp.ui.screen
 
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.ui.Alignment
@@ -13,7 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.gms.instantapps.InstantApps
 import com.kireaji.nfcsampleapp.ui.theme.NfcSampleTheme
 import com.kireaji.nfcsampleapp.ui.viewmodel.NfcScanViewModel
 import com.kireaji.nfcsampleapp.ui.viewmodel.NfcState
@@ -24,6 +28,9 @@ import java.util.*
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun NfcScanScreen(viewModel: NfcScanViewModel) {
+    val context = LocalContext.current
+    val isInstantApp = InstantApps.getPackageManagerCompat(context).isInstantApp
+
     val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
 
@@ -46,11 +53,9 @@ fun NfcScanScreen(viewModel: NfcScanViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(text = "スキャンの準備が出来ました")
-
                 Box(
                     modifier = Modifier.size(56.dp)
                 )
-
                 Button(
                     onClick = {
                         viewModel.onClickCancelScan()
@@ -71,7 +76,7 @@ fun NfcScanScreen(viewModel: NfcScanViewModel) {
                 TopAppBar(
                     title = {
                         Text(text = "NfcCheck")
-                    }
+                    },
                 )
             },
         ) {
@@ -99,9 +104,23 @@ fun NfcScanScreen(viewModel: NfcScanViewModel) {
                         "NFCスキャン",
                         modifier = Modifier.padding(24.dp)
                     )
-
                 }
 
+                if (isInstantApp) {
+                    Text(
+                        text = "InstantAppで起動中です",
+                        modifier = Modifier
+                            .padding(top = 40.dp),
+                    )
+                    Button(modifier = Modifier
+                        .padding(36.dp),
+                        onClick = {
+                            viewModel.onClickInstallPrompt()
+                        }
+                    ) {
+                        Text("アプリをインストール")
+                    }
+                }
             }
         }
     }
@@ -150,6 +169,10 @@ fun DefaultPreview() {
                 }
 
                 override fun onClickCancelScan() {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onClickInstallPrompt() {
                     TODO("Not yet implemented")
                 }
             })

@@ -12,8 +12,8 @@ android {
         applicationId = "com.kireaji.nfcsampleapp"
         minSdk = 28
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 1000
+        versionName = "v1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -79,4 +79,5 @@ dependencies {
     implementation("androidx.media3:media3-ui:$media3_version")
     // For exposing and controlling media sessions
     implementation("androidx.media3:media3-session:$media3_version")
+    implementation("com.google.android.gms:play-services-instantapps:17.0.0")
 }
