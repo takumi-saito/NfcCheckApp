@@ -34,9 +34,14 @@ android {
     productFlavors {
         create("instant") {
             versionCode = 2
+            versionName = "v1.2.0-instant"
         }
         create("installed") {
-            versionCode = 1002
+            // 1-2桁revision
+            // 3-4桁instant version
+            // 5以降はアプリVer
+            versionCode = 10200
+            versionName = "v1.2.0"
         }
     }
     compileOptions {

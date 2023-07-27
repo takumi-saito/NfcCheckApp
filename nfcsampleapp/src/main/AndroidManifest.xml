@@ -20,6 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NfcSample">
+        <meta-data
+            android:name="asset_statements"
+            android:resource="@string/asset_statements" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -30,24 +34,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter
-                android:label="applinks"
-                android:autoVerify="true"
-                >
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="https"/>
-                <data android:scheme="http" />
-                <data android:host="nfcsample-8db1c.firebaseapp.com" />
-                <data android:pathPattern="/launch" />
-            </intent-filter>
-
-            <intent-filter
-                android:label="custom_scheme">
+            <intent-filter android:label="custom_scheme">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -57,9 +45,31 @@
                     android:scheme="nfcsample-8db1c"
                     android:host="launch" />
             </intent-filter>
+
             <meta-data
                 android:name="default-url"
-                android:value="https://nfcsample-8db1c.firebaseapp.com/launch"/>
+                android:value="https://nfcsample-8db1c.firebaseapp.com/launch" />
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+                <data android:host="nfcsample-8db1c.firebaseapp.com" />
+                <data android:pathPattern="/launch" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:host="nfcsample-8db1c.firebaseapp.com" />
+                <data android:pathPattern="/launch" />
+            </intent-filter>
         </activity>
         <activity android:name=".OnTouchActivity" />
     </application>
