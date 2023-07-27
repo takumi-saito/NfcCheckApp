@@ -4,7 +4,9 @@
 
     <!-- NFCの利用許可、2つ目は「NFCがない端末はインストールさせない」設定 -->
     <uses-permission android:name="android.permission.NFC" />
-    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
 
     <application
         android:allowBackup="true"

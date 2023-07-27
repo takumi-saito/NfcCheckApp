@@ -1,18 +1,11 @@
 package com.kireaji.nfcsampleapp.ui.screen
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import android.nfc.NfcAdapter
-import android.nfc.NfcAdapter.ReaderCallback
-import android.nfc.Tag
-import android.util.Log
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -21,13 +14,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.tooling.preview.Preview
-import com.kireaji.nfcsampleapp.MainActivity
-import com.kireaji.nfcsampleapp.MainActivity.Companion.TAG
 import com.kireaji.nfcsampleapp.ui.theme.NfcSampleTheme
 import com.kireaji.nfcsampleapp.ui.viewmodel.NfcScanViewModel
-import com.kireaji.nfcsampleapp.ui.viewmodel.NfcScanViewModelImpl
 import com.kireaji.nfcsampleapp.ui.viewmodel.NfcState
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.lang.StringBuilder
 import java.util.*
@@ -137,7 +126,12 @@ fun bytesToHexString(bytes: ByteArray): String {
     return sb.toString().uppercase(Locale.getDefault())
 }
 
+fun ByteArray.toHex(): String {
+    return joinToString("") {
+        "%02x".format(it)
 
+    }
+}
 @ExperimentalMaterialApi
 @Preview(showBackground = true)
 @Composable

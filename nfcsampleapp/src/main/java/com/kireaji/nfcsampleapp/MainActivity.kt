@@ -27,6 +27,8 @@ import com.kireaji.nfcsampleapp.ui.theme.NfcSampleTheme
 import com.kireaji.nfcsampleapp.ui.viewmodel.NfcScanViewModelFactory
 import com.kireaji.nfcsampleapp.ui.viewmodel.NfcScanViewModelImpl
 import kotlinx.coroutines.launch
+import android.content.Intent
+import android.net.Uri
 
 @UnstableApi
 class MainActivity : ComponentActivity() {
@@ -57,6 +59,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        // ATTENTION: This was auto-generated to handle app links.
+        val appLinkIntent: Intent = intent
+        val appLinkAction: String? = appLinkIntent.action
+        val appLinkData: Uri? = appLinkIntent.data
     }
 
     override fun onPause() {
